@@ -24,12 +24,41 @@ This syllabus is designed to take you from intermediate Python (PCAP level) to a
 - pytest for testing
 - Pydantic for data validation
 - Scikit-learn for machine learning
+- PyTorch for deep learning
+- Jupyter for interactive development
 
 ---
 
 ## Month 1: Advanced Python Foundations + Data Analysis Fundamentals
 
 **Focus:** Solidify PCAP-level concepts and begin data science track
+
+### Environment Setup: Jupyter Notebooks
+
+Before diving into data science topics, get comfortable with Jupyter — it's the standard environment for exploratory data work and you'll use it throughout Months 1-4.
+
+#### Jupyter Fundamentals
+- **Video:** [Corey Schafer - Jupyter Notebook Tutorial: Introduction, Setup, and Walkthrough](https://www.youtube.com/watch?v=HW29067qVWk) (30 min) ⭐⭐
+- **Video:** [Keith Galli - Jupyter Notebook Tutorial for Beginners with Python](https://www.youtube.com/watch?v=2WL-XTl2QYI) (25 min) ⭐
+
+**Topics to Master:**
+- Installing Jupyter via pip or Anaconda
+- Notebook interface: cells, kernel, toolbar
+- Cell types: code vs. markdown
+- Running cells and restarting the kernel
+- Magic commands (`%timeit`, `%matplotlib inline`, `%run`, `%%time`)
+- Keyboard shortcuts for efficiency
+- Exporting notebooks (HTML, PDF, .py)
+- JupyterLab vs. classic Jupyter Notebook
+- Organizing notebooks for readability (narrative + code)
+- Using Jupyter with virtual environments
+
+**Practice:**
+- Recreate a simple data analysis as a notebook with markdown explanations
+- Use `%timeit` to compare Python list vs. NumPy array performance
+- Export a notebook to HTML and share it
+
+---
 
 ### Week 1-2: Advanced Python Concepts
 
@@ -403,6 +432,57 @@ Build a REST API using FastAPI + Pydantic + async operations (e.g., async databa
 - Building simple neural networks
 - CNN basics (if time permits)
 
+#### PyTorch for Deep Learning
+
+PyTorch is the dominant framework in research and increasingly in production, and pairs naturally with the NumPy and Pandas skills you've built. Work through this after the TensorFlow introduction to understand both ecosystems.
+
+- **Video:** [freeCodeCamp - PyTorch for Deep Learning & Machine Learning – Full Course](https://www.youtube.com/watch?v=V_xro1bcAuA) (26 hours) ⭐⭐ *(work through in segments)*
+- **Video:** [Daniel Bourke - Learn PyTorch for Deep Learning in a Day](https://www.youtube.com/watch?v=Z_ikDlimN6A) (25 hours condensed) ⭐⭐
+- **Video:** [PyTorch Official Beginner Series](https://www.youtube.com/playlist?list=PL_lsbAsL_o2CTlGHgMxNrKhzP97BaG9ZN) (Official, ~10 videos) ⭐
+- **Video:** [Aladdin Persson - PyTorch Crash Course](https://www.youtube.com/watch?v=uq7sbUlIDR8) (2 hours) ⭐
+
+**Topics to Master:**
+
+**PyTorch Fundamentals:**
+- Tensors vs NumPy arrays (and interoperability)
+- Tensor operations, indexing, reshaping
+- GPU acceleration with CUDA (`tensor.to("cuda")`)
+- Autograd and automatic differentiation
+- Computational graphs
+
+**Building Neural Networks:**
+- `torch.nn.Module` structure
+- Defining layers (Linear, Conv2d, ReLU, Dropout, etc.)
+- `forward()` method
+- Loss functions (`CrossEntropyLoss`, `MSELoss`, etc.)
+- Optimizers (SGD, Adam) and `optimizer.step()`
+- Training loop: forward pass → loss → backward → update
+
+**Data Handling:**
+- `Dataset` and `DataLoader` classes
+- Custom Dataset creation
+- Transforms and augmentation
+- Batching, shuffling, and parallel loading
+
+**Model Workflows:**
+- Saving and loading models (`torch.save`, `torch.load`)
+- Transfer learning with pretrained models (`torchvision.models`)
+- Model evaluation mode (`model.eval()`) and `torch.no_grad()`
+- Using TensorBoard with PyTorch
+
+**Common Architectures:**
+- Feedforward neural networks
+- Convolutional Neural Networks (CNNs) for image data
+- Recurrent networks (RNN, LSTM) basics
+- Introduction to Transformers (conceptual)
+
+**Practice:**
+- Replicate classic Scikit-learn experiments (MNIST, iris) using PyTorch
+- Train a CNN on an image dataset in a Jupyter notebook
+- Load a pretrained ResNet and fine-tune it on a custom dataset
+
+---
+
 ### Week 3: Data Visualization + Pydantic for ML
 
 #### Data Visualization
@@ -545,6 +625,37 @@ Since Pydantic integrates throughout the syllabus, here's how it builds:
 
 ---
 
+## Project Ideas
+
+These projects are designed to connect multiple topics from the syllabus. Each one is intentionally cross-cutting — building them will reinforce how the tools work together, not just in isolation.
+
+### 1. Interactive ML Experiment Notebook + API
+**Combines:** Jupyter, PyTorch, FastAPI, Pydantic, Pandas
+
+Train a PyTorch model (e.g., a classifier on a public dataset) entirely inside a Jupyter notebook with full narrative documentation — EDA with Pandas, training loop with loss curves plotted via Matplotlib, and model evaluation. Then export the trained model and wrap it in a FastAPI endpoint with Pydantic request/response validation. The notebook becomes your reproducible experiment log; the API is the production surface.
+
+### 2. Validated Data Science Pipeline with Reporting
+**Combines:** Jupyter, Pandas, NumPy, Pydantic, pytest, Matplotlib
+
+Build an end-to-end data pipeline that ingests a messy real-world CSV, validates it with Pydantic at each transformation stage, cleans and analyzes it with Pandas/NumPy, and outputs a polished Jupyter notebook report with Matplotlib/Seaborn visualizations. Write pytest tests for every transformation function. The goal: a pipeline that either validates and reports, or fails loudly with clear errors.
+
+### 3. PyTorch Image Classifier with Django Frontend
+**Combines:** PyTorch, Django, Pandas, Matplotlib, pytest
+
+Train a CNN in PyTorch to classify images (e.g., CIFAR-10 or a custom dataset). Build a Django web app where users upload an image and receive a classification result. Store prediction history in the database, display accuracy trends over time with Matplotlib/Plotly, and expose a DRF API for programmatic access. Write pytest tests for the Django views and the model inference logic.
+
+### 4. Hyperparameter Tuning Dashboard
+**Combines:** Jupyter, PyTorch, Pydantic, Pandas, Matplotlib
+
+Use Pydantic to define strongly-typed hyperparameter configs (learning rate, batch size, architecture choices). Run a grid search over configs in a Jupyter notebook, log results to a Pandas DataFrame, and visualize the performance landscape with Matplotlib. The Pydantic models ensure no invalid configs can be submitted, and the notebook provides a clear audit trail of every experiment.
+
+### 5. Async ML Data Fetcher + Processor
+**Combines:** FastAPI, async Python, PyTorch, Pandas, Pydantic, pytest
+
+Build an async FastAPI service that fetches data from an external source (e.g., a public API), preprocesses it with Pandas, runs inference with a PyTorch model, and returns validated results via Pydantic response models. Use `asyncio` for concurrent data fetching, background tasks for long-running jobs, and pytest with async fixtures for full test coverage.
+
+---
+
 ## Best YouTube Channels to Follow
 
 ### Essential Channels
@@ -559,6 +670,7 @@ Since Pydantic integrates throughout the syllabus, here's how it builds:
 - **Data School** - Pandas and data science tutorials
 - **3Blue1Brown** - Visual explanations of ML concepts
 - **freeCodeCamp** - Comprehensive courses on everything
+- **Daniel Bourke** - PyTorch deep learning, end-to-end ML projects
 
 ### Web Development
 - **Dennis Ivy** - Django and DRF tutorials
@@ -579,6 +691,8 @@ Since Pydantic integrates throughout the syllabus, here's how it builds:
 - [Pydantic Documentation](https://docs.pydantic.dev/)
 - [pytest Documentation](https://docs.pytest.org/)
 - [Scikit-learn Documentation](https://scikit-learn.org/stable/)
+- [PyTorch Documentation](https://pytorch.org/docs/stable/)
+- [Jupyter Documentation](https://jupyter.org/documentation)
 
 ### Written Tutorials & Articles
 - **Real Python** - In-depth articles & tutorials (realpython.com)
@@ -601,6 +715,7 @@ Since Pydantic integrates throughout the syllabus, here's how it builds:
 - *Django for Beginners* by William S. Vincent
 - *FastAPI Beyond CRUD* by Patrick Kennedy
 - *Hands-On Machine Learning* by Aurélien Géron
+- *Deep Learning with PyTorch* by Eli Stevens, Luca Antiga & Thomas Viehmann
 
 ---
 
@@ -720,6 +835,7 @@ Since Pydantic integrates throughout the syllabus, here's how it builds:
 - [ ] Implement context managers
 - [ ] Proficient with NumPy arrays and operations
 - [ ] Complete 3+ NumPy practice problems
+- [ ] Comfortable working in Jupyter notebooks
 
 ### Month 2
 - [ ] Comfortable with DataFrame operations
@@ -736,7 +852,8 @@ Since Pydantic integrates throughout the syllabus, here's how it builds:
 - [ ] Implement async operations in Python
 
 ### Month 4
-- [ ] Train and evaluate ML models
+- [ ] Train and evaluate ML models with Scikit-learn
+- [ ] Build and train neural networks with PyTorch
 - [ ] Integrate ML into web applications
 - [ ] Create effective data visualizations
 - [ ] Complete 2-3 capstone projects
@@ -757,14 +874,15 @@ Since Pydantic integrates throughout the syllabus, here's how it builds:
 - Portfolio-ready capstone projects
 
 ### Modern Python Stack
-- Industry-relevant technologies (FastAPI, Pydantic)
-- Current best practices (type hints, testing)
+- Industry-relevant technologies (FastAPI, Pydantic, PyTorch)
+- Current best practices (type hints, testing, Jupyter notebooks)
 - Production-ready patterns
 
 ### Comprehensive Coverage
-- Data science track (NumPy, Pandas, ML)
+- Data science track (NumPy, Pandas, ML, PyTorch)
 - Web development track (Django, FastAPI)
 - Professional development (testing, validation)
+- Interactive development (Jupyter)
 
 ### Flexibility
 - Can adjust pace based on your schedule
@@ -778,9 +896,10 @@ Since Pydantic integrates throughout the syllabus, here's how it builds:
 This 4-month journey will transform you from an intermediate Python developer to someone capable of:
 - Building production-ready web applications
 - Performing advanced data analysis
-- Creating machine learning solutions
+- Creating machine learning solutions with both Scikit-learn and PyTorch
 - Writing well-tested, type-safe code
 - Working with modern Python frameworks
+- Documenting and sharing work through Jupyter notebooks
 
 Remember: **Consistency beats intensity.** 1-2 hours daily is better than 10 hours once a week.
 
@@ -788,6 +907,6 @@ Remember: **Consistency beats intensity.** 1-2 hours daily is better than 10 hou
 
 ---
 
-*Last Updated: December 2024*  
+*Last Updated: July 2026*  
 *Based on: PCEP certification complete, PCAP in progress*  
-*Target Outcome: Advanced Python developer with full-stack capabilities*
+*Target Outcome: Advanced Python developer with full-stack and deep learning capabilities*
